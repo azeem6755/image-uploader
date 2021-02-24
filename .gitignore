@@ -23,4 +23,5 @@ pnpm-debug.log*
 *.sw?
 
 # Virtualenv 
-./venv/
+venv/
+*/__pycache__/*
