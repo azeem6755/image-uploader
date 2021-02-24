@@ -25,3 +25,4 @@ pnpm-debug.log*
 # Virtualenv 
 venv/
 */__pycache__/*
+*/migrations/*
