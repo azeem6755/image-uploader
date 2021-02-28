@@ -26,3 +26,7 @@ pnpm-debug.log*
 venv/
 */__pycache__/*
 */migrations/*
+*.pyc
+
+# Media
+backend/media
