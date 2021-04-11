@@ -6,7 +6,7 @@
             :is-full-page=false
             :loader=this.loader
         />
-        adddn
+        Uploading...
     </div>
 </template>
 

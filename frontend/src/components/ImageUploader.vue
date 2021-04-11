@@ -1,8 +1,12 @@
 <template>
     <div class="main-container">
         <div class="upload-container">
+          <loader
+            v-if="this.loading"
+            :isLoading="this.loading" />
+          <div v-else>
             <div class="title">
-            <span>Upload your Image</span>
+                <span>Upload your Image</span>
             </div>
             <div class="sub-title">
                 <span class="sub-title">File should be Jpeg, Png,...</span>
@@ -14,23 +18,28 @@
             </div>
             <div class="upload-btn">
                 <input type="file" id="file-upload-button" accept="image/*" @change="uploadImage($event)" hidden/>
-                <label for="file-upload-button">Choose a file</label>
+                <label for="file-upload-button" class="file-upload-label">Choose a file</label>
             </div>
+          </div>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Loader from './Loader.vue'
 
 export default {
     data: () => ({
         loading: false
     }),
+    components: {
+      Loader
+    },
     name: 'ImageUploader',
     methods: {
         uploadImage(event) {
-            this.$emit('uploadStart')
+            this.loading = true;
             const URL = 'http://localhost:8000/upload/'
             let data = new FormData()
             data.append('image', event.target.files[0])
@@ -47,15 +56,16 @@ export default {
                 response => {
                     if(response.status === 201){
                         console.log('Image uploaded')
+                        this.loading = false;
                         this.$emit('imageUploaded')
                     }
                     else if(response.status === 400){
                         console.log('Image upload fail')
+                        this.$emit('uploadFailed')
                     }
                     else {
                         console.log(' ')
                     }
-                    console.log('image upload response', response.status)
                 }
             )
             
@@ -127,7 +137,7 @@ export default {
         font-family: Noto Sans;
         font-style: normal;
         font-weight: 500;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 16px;
         text-align: center;
         letter-spacing: -0.035em;

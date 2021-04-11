@@ -1,39 +1,45 @@
 <template>
     <div class="main">
-        <loader :isLoading="this.loading" v-if="this.loading" />
-        <image-uploader v-if="!this.uploadComplete && !this.loading" v-on:imageUploaded="uploadFinished" v-on:uploadStart="startLoading"/>
-        <image-view-modal v-if="this.uploadComplete && !this.loading"/>
+        <image-uploader
+            v-if="!this.uploadComplete && !this.uploadFailedVar"
+            @imageUploaded="uploadFinished"
+            @uploadFailed="uploadFailed" />
+        <image-view-modal v-if="this.uploadComplete && !this.uploadFailedVar"/>
+        <div v-if="this.uploadComplete && this.uploadFailedVar">
+          <p> Upload Failed </p>
+          <button @click="tryAgain">Try Again</button>
+        </div>
     </div>
 </template>
 
 <script>
 import ImageUploader from './ImageUploader.vue'
 import ImageViewModal from './ImageViewModal.vue'
-import Loader from './Loader.vue'
 
 export default {
     name: 'Main',
     components: {
         ImageUploader,
-        ImageViewModal,
-        Loader
+        ImageViewModal
     },
     data: () => ({
-        loading: false,
         uploadComplete: false,
+        uploadFailedVar: false
     }),
     methods: {
-        startLoading() {
-            console.log('start loading')
-            this.loading = true
-        },
-        stopLoading() {
-            this.loading = false
-        },
         uploadFinished() {
             console.log('upload finished')
             this.uploadComplete = true
-            this.loading = false
+        },
+        uploadFailed() {
+            console.log('upload failed')
+            this.uploadComplete = true
+            this.uploadFailedVar = true
+        },
+        tryAgain() {
+            console.log('Trying Again')
+            this.uploadComplete = false
+            this.uploadFailedVar = false
         }
     }
 }
