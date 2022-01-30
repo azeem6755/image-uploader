@@ -11,13 +11,14 @@
             <div class="sub-title">
                 <span class="sub-title">File should be Jpeg, Png,...</span>
             </div>
-            <div class="upload-area">
-            </div>
+            <form id="drop-form" class="upload-area" @drop="handleFileDrop( $event )">
+                <span class="drop-files">Drop the files here!</span>
+            </form>
             <div class="upload-or">
                 <span class="or-text">OR</span>
             </div>
             <div class="upload-btn">
-                <input type="file" id="file-upload-button" accept="image/*" @change="uploadImage($event)" hidden/>
+                <input type="file" id="file-upload-button" accept="image/*" @change="uploadImage($event, 'upload')" hidden/>
                 <label for="file-upload-button" class="file-upload-label">Choose a file</label>
             </div>
           </div>
@@ -28,6 +29,7 @@
 <script>
 import axios from 'axios'
 import Loader from './Loader.vue'
+// import UploadDrop from './UploadDrop.vue'
 
 export default {
     data: () => ({
@@ -35,14 +37,23 @@ export default {
     }),
     components: {
       Loader
+    //   UploadDrop
     },
     name: 'ImageUploader',
+    mounted() {
+        this.bindEvents();
+    },
     methods: {
-        uploadImage(event) {
+        uploadImage(event, source) {
             this.loading = true;
             const URL = 'http://localhost:8000/upload/'
             let data = new FormData()
-            data.append('image', event.target.files[0])
+            if (source === 'upload'){
+                data.append('image', event.target.files[0])
+            }
+            else {
+                data.append('image', event.dataTransfer.files[0])
+            }
             let config = {
                 header: {
                     'Content-Type': 'image/*'
@@ -69,6 +80,17 @@ export default {
                 }
             )
             
+        },
+        bindEvents() {
+            ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'].forEach( function( evt ) {
+					document.getElementById('drop-form').addEventListener(evt, function(e){
+						e.preventDefault();
+						e.stopPropagation();
+					}.bind(this), false);
+				}.bind(this));
+        },
+        handleFileDrop(event) {
+            this.uploadImage(event, 'drag')
         },
         loadImage(img) {
             let image = document.getElementById('output')
