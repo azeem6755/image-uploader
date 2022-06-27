@@ -18,6 +18,7 @@ class ImageUploadView(APIView):
 
     def post(self, request, *args, **kwargs):
         image_serializer = ImageSerializer(data=request.data)
+        print(request.data)
         if image_serializer.is_valid():
             image_serializer.save()
             return Response(image_serializer.data, status=status.HTTP_201_CREATED)

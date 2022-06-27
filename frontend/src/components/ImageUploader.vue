@@ -41,12 +41,13 @@ export default {
     },
     name: 'ImageUploader',
     mounted() {
+        console.log(process.env.VUE_APP_AWS_URL);
         this.bindEvents();
     },
     methods: {
         uploadImage(event, source) {
             this.loading = true;
-            const URL = 'http://localhost:8000/upload/'
+            const URL = this.getBaseURL() + 'upload/'
             let data = new FormData()
             if (source === 'upload'){
                 data.append('image', event.target.files[0])

@@ -1,4 +1,9 @@
 from django.db import models
+from django.conf import settings
+
+
+# UPLOAD_TO = settings.MEDIA_URL
+# print(UPLOAD_TO)
 
 # Create your models here.
 

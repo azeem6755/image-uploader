@@ -30,3 +30,6 @@ venv/
 
 # Media
 backend/media
+
+*.env
+*db.sqlite3

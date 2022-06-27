@@ -25,6 +25,7 @@ export default {
       }
     },
     mounted() {
+      console.log(process.env.VUE_APP_AWS_URL)
       this.loadLastImage();
     },
   methods: {
@@ -35,13 +36,14 @@ export default {
         document.execCommand("copy");
       },
       loadLastImage: function () {
-          const URL = 'http://localhost:8000/upload/load/'
+          const URL = this.getBaseURL() + 'upload/load/'
           axios.get(
                   URL
               ).then(
                   response => {
                       if(response.status === 200){
-                          this.imageUrl = 'http://localhost:8000/media/' + response.data.image;
+                          console.log(response)
+                          this.imageUrl = process.env.VUE_APP_AWS_URL + response.data.image;
                           console.log('REsposne', response)
                       }
                       else {
