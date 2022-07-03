@@ -42,9 +42,7 @@ export default {
               ).then(
                   response => {
                       if(response.status === 200){
-                          console.log(response)
                           this.imageUrl = process.env.VUE_APP_AWS_URL + response.data.image;
-                          console.log('REsposne', response)
                       }
                       else {
                           console.log('Fail ')

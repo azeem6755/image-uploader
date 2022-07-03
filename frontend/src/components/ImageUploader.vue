@@ -75,6 +75,10 @@ export default {
                         console.log('Image upload fail')
                         this.$emit('uploadFailed')
                     }
+                    else if (response.status === 413) {
+                        alert('Image size too large...')
+                        this.$emit('uploadFailed')
+                    }
                     else {
                         console.log(' ')
                     }

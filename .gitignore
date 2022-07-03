@@ -30,6 +30,8 @@ venv/
 
 # Media
 backend/media
+dist
 
 *.env
-*db.sqlite3
+backend/db.sqlite3
+*.env.prod

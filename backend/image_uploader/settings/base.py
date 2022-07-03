@@ -24,12 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'a$yx@*r+$2fafsv9tluvod17u%i*^%g!t=fw2#sx)21*79o$6d'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
 
 
 # Application definition
@@ -66,7 +63,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'static_root')
+            os.path.join(os.path.dirname(BASE_DIR), 'static_root')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -155,7 +152,7 @@ DEFAULT_FILE_STORAGE = 'image_uploader.storage_backends.PublicMediaStorage'
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_root')
 STATICFILES_DIRS = [
     os.path.join(os.path.dirname(BASE_DIR), 'dist'),
 ]
