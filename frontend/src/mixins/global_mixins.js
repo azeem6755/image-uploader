@@ -8,9 +8,9 @@ export const globalMixin = {
             window.location.protocol +
             '//' +
             window.location.hostname +
-            ':8000/';
+            ':8000/image/';
         } else {
-          baseUrl = window.location.origin + '/';
+          baseUrl = window.location.origin + '/image/';
         }
         return baseUrl;
       },

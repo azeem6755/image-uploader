@@ -21,10 +21,10 @@ from django.conf.urls.static import static
 from django.urls.conf import include
 
 urlpatterns = [
-    path('/', TemplateView.as_view(template_name='index.html'), name=''),
-    path('', TemplateView.as_view(template_name='index.html'), name=''),
-    path('admin/', admin.site.urls),
-    path('upload/', include('upload.urls'))
+    path('/image/', TemplateView.as_view(template_name='index.html'), name=''),
+    path('image', TemplateView.as_view(template_name='index.html'), name=''),
+    path('image/admin/', admin.site.urls),
+    path('image/upload/', include('upload.urls'))
 ]
 
 urlpatterns += static('' + settings.STATIC_URL, document_root=settings.STATIC_ROOT)
