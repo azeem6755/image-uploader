@@ -4,6 +4,6 @@ const webpack = require('webpack')
 
 module.exports = {
     outputDir: path.resolve(__dirname, '../dist'),
-    publicPath: process.env.NODE_ENV === 'production' ? '/static/' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/image/static/' : '/',
     runtimeCompiler: true,
 }
