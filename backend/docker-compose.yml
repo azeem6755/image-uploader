@@ -1,7 +1,7 @@
 services:
   web:
     container_name: image-uploader
-    image: image-uploader:latest
+    image: public.ecr.aws/d6w2o4u5/image-uploader
     command: gunicorn -b 0.0.0.0:8000 --timeout 300 --workers 4 image_uploader.wsgi:application
     ports:
       - 8001:8000
